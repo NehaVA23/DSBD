@@ -1,0 +1,113 @@
+DSBDA ass no 5 heartdisease
+
+import pandas as pd
+df = pd.read_csv('/content/heartdisease(1).csv')
+
+df.isnull().sum()
+
+df.dropna(inplace = True, axis = 0)
+
+df.isnull().sum()
+
+df.duplicated().sum()
+
+df.head()
+
+DATA INTEGRATION
+
+subset_1 = ['Age', 'Sex', 'RestBP', 'Chol', 'Fbs', 'RestECG', 'MaxHR', 'ExAng', 'Oldpeak', 'Slope', 'Ca']
+subset_2 = ['ChestPain', 'Thal']
+
+merged_df = pd.concat([df[subset_1], df[subset_2]], axis = 1)
+
+merged_df.head()
+
+ERROR CORRECTION
+
+df['Fbs'].value_counts()
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+for i in subset_1:
+  plt.figure(figsize = (4,4))
+  sns.boxplot(df[i])
+  plt.show()
+  
+import numpy as np
+
+def remove_outlier(column):
+  q1 = column.quantile(0.25)
+  q2 = column.quantile(0.75)
+  iqr = q2-q1
+  threshold = 1.5 * iqr
+  outlier = np.logical_or(column < ( q1 - threshold) , column > (q2 + threshold))
+  return column[~outlier]
+  
+for col in subset_1:
+  df[col] = remove_outlier(df[col])
+  
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+for i in subset_1:
+  plt.figure(figsize = (4,4))
+  sns.boxplot(df[i])
+  plt.show()
+  
+df.isnull().sum()
+
+DATA TRANSFORMATION
+
+df.head()
+
+subset_3 = ['ChestPain', 'Thal']
+subset_4 = ['Age', 'Sex', 'RestBP', 'Chol', 'Fbs', 'RestECG', 'MaxHR', 'ExAng', 'Oldpeak', 'Slope', 'Ca']
+
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.model_selection import train_test_split
+X = df.iloc[:, :-1]
+y = df['AHD']
+
+X.head()
+
+X.isnull().sum()
+
+X = X.iloc[:, 1:]
+
+y.head()
+
+le = LabelEncoder()
+sc = StandardScaler()
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 42)
+
+for i in subset_3:
+  X_train[i] = le.fit_transform(X_train[i])
+  X_test[i] = le.transform(X_test[i])
+  
+for i in subset_4:
+  X_train[i] = sc.fit_transform(X_train[i].values.reshape(-1,1))
+  X_test[i] = sc.transform(X_test[i].values.reshape(-1,1))
+  
+X_train.isnull().sum()
+
+MODEL BUILDING
+
+from sklearn.linear_model import LogisticRegression
+model = LogisticRegression()
+model.fit(X_train, y_train)
+
+from sklearn.svm import SVC
+svc = SVC()
+svc.fit(X_train, y_train)
+prediction_1 = svc.predict(X_test)
+print("Accuracy: ", accuracy_score(y_test, prediction_1))
+
+prediction = model.predict(X_test)
+
+from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay
+print("Accuracy: ", accuracy_score(y_test, prediction))
+
+ConfusionMatrixDisplay(confusion_matrix(y_test,prediction_1)).plot()
+
