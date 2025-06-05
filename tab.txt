@@ -1,0 +1,129 @@
+Absolutely! Below are 5 practical Tableau chart ideas for each dataset — city_day.csv and station_day.csv — clearly labeled and ready for your practical.
+
+📁 Dataset 1: city_day.csv (Use in Tableau)
+
+1. Line Chart – AQI Trend Over Time (per City)
+
+
+
+Columns: Date
+
+Rows: AVG(AQI)
+
+Filters: City
+
+Color: City
+
+Tooltip: AQI_Bucket Purpose: Shows how AQI changes over time for selected cities.
+
+
+2. Bar Chart – Average PM2.5 by City
+
+
+
+Columns: City
+
+Rows: AVG(PM2.5)
+
+Color: AVG(PM2.5)
+
+Sort: Descending Purpose: Compares pollution levels across cities.
+
+
+3. Pie Chart – Distribution of AQI Buckets
+
+
+
+Rows: AQI_Bucket
+
+Size: COUNT(AQI)
+
+Color: AQI_Bucket Purpose: Shows proportion of each air quality category.
+
+
+4. Heat Map – City vs AQI_Bucket
+
+
+
+Columns: City
+
+Rows: AQI_Bucket
+
+Color: COUNT(AQI) Purpose: Highlights which cities often fall in which AQI categories.
+
+
+5. Dual Axis Chart – AQI vs PM2.5 Over Time
+
+
+
+Columns: Date
+
+Rows: AVG(AQI) and AVG(PM2.5) (dual axis)
+
+Filters: City Purpose: Compares AQI and PM2.5 trends over time for a city.
+
+
+—
+
+📁 Dataset 2: station_day.csv (Use in Tableau)
+
+1. Line Chart – AQI Trend Over Time (per Station)
+
+
+
+Columns: Date
+
+Rows: AVG(AQI)
+
+Filters: Station
+
+Color: Station Purpose: Shows AQI trends reported by each station.
+
+
+2. Bar Chart – Average PM10 by Station
+
+
+
+Columns: Station
+
+Rows: AVG(PM10)
+
+Color: City Purpose: Compares PM10 levels reported by different stations.
+
+
+3. Box Plot – AQI Distribution by Station
+
+
+
+Columns: Station
+
+Rows: AQI
+
+Use: Analytics Pane → Box Plot Purpose: Visualizes AQI spread at each station.
+
+
+4. Scatter Plot – PM2.5 vs PM10
+
+
+
+Columns: PM2.5
+
+Rows: PM10
+
+Color: City or Station Purpose: Shows correlation between PM2.5 and PM10.
+
+
+5. Stacked Bar Chart – AQI_Bucket per City
+
+
+
+Columns: City
+
+Rows: COUNT(AQI)
+
+Color: AQI_Bucket Purpose: Compares AQI categories distribution for each city (using station-level data).
+
+
+—
+
+Let me know if you want this in PDF or presentation format, or if you want a Dashboard layout combining these charts.
